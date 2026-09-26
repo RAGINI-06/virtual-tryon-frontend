@@ -2,7 +2,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Landing from "./pages/Landing";
-import Splash from "./pages/Splash";
+import { useState } from "react";
+import SplashScreen from "./components/SplashScreen";
 
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -15,30 +16,27 @@ import Profile from "./pages/profile/Profile";
 import History from "./pages/history/History";
 
 function App() {
+  const [showSplash, setShowSplash] = useState(true);
+
   return (
-    <BrowserRouter>
-      <Routes>
+    <>
+      {showSplash && (
+        <SplashScreen onComplete={() => setShowSplash(false)} />
+      )}
 
-        <Route path="/splash" element={<Splash />} />
-
-        <Route path="/" element={<Landing />} />
-
-        <Route path="/login" element={<Login />} />
-
-        <Route path="/register" element={<Register />} />
-
-        <Route path="/consent" element={<Consent />} />
-
-        <Route path="/dashboard" element={<Dashboard />} />
-
-        <Route path="/try-on" element={<TryOn />} />
-
-        <Route path="/history" element={<History />} />
-
-        <Route path="/profile" element={<Profile />} />
-
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/consent" element={<Consent />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/try-on" element={<TryOn />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
