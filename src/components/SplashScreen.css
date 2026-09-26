@@ -3,7 +3,7 @@
 /* =========================================
    AROSE SPLASH SCREEN
    Figma Frame: 430 × 932
-   Background: #A57E58
+   Background: rgb(165, 126, 88)
 ========================================= */
 
 .splash-screen {
@@ -177,7 +177,6 @@
 ========================================= */
 
 @media (max-width: 430px) {
-
   .splash-canvas {
     --splash-scale: calc(100vw / 430);
 
@@ -193,7 +192,6 @@
 ========================================= */
 
 @media (min-width: 431px) {
-
   .splash-canvas {
     --splash-scale: min(
       calc(100vw / 430),

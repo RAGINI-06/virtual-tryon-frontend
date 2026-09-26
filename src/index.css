@@ -1,44 +1,57 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Irish+Grover&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap");
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
-@import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
-@custom-variant dark (&:is(.dark *));
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 
-@import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
+/* =========================================
+   AROSE BASE
+   ========================================= */
+
 :root {
   font-family: "DM Sans", sans-serif;
   color: #171717;
   background: #f8f7f4;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
+
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
+
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
+
   --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0);
+
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
+
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
+
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
+
   --destructive: oklch(0.577 0.245 27.325);
+
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
+
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
+
   --radius: 0.625rem;
+
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -48,6 +61,10 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 }
+
+/* =========================================
+   GLOBAL RESET
+   ========================================= */
 
 * {
   box-sizing: border-box;
@@ -82,16 +99,11 @@ a {
 .font-display {
   font-family: "Playfair Display", serif;
 }
+
 /* =========================================
    AROSE BUTTON + NAV POLISH
    ========================================= */
 
-/* Replace harsh pure-black UI blocks */
-/* =========================================
-   AROSE DASHBOARD POLISH
-   ========================================= */
-
-/* Primary CTA */
 .arose-primary {
   background: #3d3935;
   color: #faf9f6;
@@ -104,7 +116,6 @@ a {
   border-color: #514c46;
 }
 
-/* Active sidebar item */
 .arose-nav-active {
   background: #e9e3da;
   color: #292724;
@@ -115,7 +126,6 @@ a {
   background: #e2dbd1;
 }
 
-/* Secondary button */
 .arose-secondary {
   background: #fffdfa;
   color: #35312d;
@@ -128,7 +138,6 @@ a {
   border-color: #c9c1b6;
 }
 
-/* Ghost button */
 .arose-ghost {
   color: #5e5952;
   transition: all 180ms ease;
@@ -139,9 +148,14 @@ a {
   color: #292724;
 }
 
+/* =========================================
+   TAILWIND THEME
+   ========================================= */
+
 @theme inline {
   --font-heading: var(--font-sans);
-  --font-sans: 'Geist Variable', sans-serif;
+  --font-sans: "Geist Variable", sans-serif;
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -150,29 +164,39 @@ a {
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
+
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
+
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
+
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
+
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
+
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
+
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
+
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+
   --color-foreground: var(--foreground);
   --color-background: var(--background);
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -182,30 +206,44 @@ a {
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* =========================================
+   DARK MODE
+   ========================================= */
+
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
+
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
+
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
+
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
+
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
+
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
+
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
+
   --destructive: oklch(0.704 0.191 22.216);
+
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
+
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
+
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -216,18 +254,131 @@ a {
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* =========================================
+   SHARED GLOBAL UTILITIES
+   ========================================= */
 
-  /* * {
+@layer base {
+  * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }
-} */
+}
 
-/* =========================
+/* =========================================
    AROSE SPLASH SCREEN
- 
+   ========================================= */
+
+
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: rgb(165, 126, 88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+}
+
+.splash-canvas {
+  position: relative;
+  width: 430px;
+  height: 932px;
+  flex-shrink: 0;
+  background: rgb(165, 126, 88);
+  overflow: hidden;
+  transform-origin: center center;
+  --splash-scale: min(
+    calc(100vw / 430),
+    calc(100vh / 932)
+  );
+  transform: translateY(-40px) scale(var(--splash-scale));
+}
+
+.arose-mask-group {
+  position: absolute;
+  background: rgb(165, 126, 88);
+  z-index: 1;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.union-rectangle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 267px;
+  background: rgb(165, 126, 88);
+}
+
+.union-bottom {
+  position: absolute;
+  left: 0;
+  top: 221px;
+  width: 100%;
+  height: 92px;
+  border-radius: 50%;
+  background: rgb(165, 126, 88);
+}
+
+.arose-logo {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transform-origin: center center;
+}
+
+.arose-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 119px;
+}
+
+.arose-wordmark {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-family: "Irish Grover", cursive;
+  font-size: 64px;
+  font-weight: 400;
+  line-height: 77px;
+  white-space: nowrap;
+  transform: rotate(-0.5deg);
+  overflow: visible;
+  pointer-events: none;
+}
+
+@media (max-width: 430px) {
+  .splash-canvas {
+    --splash-scale: calc(100vw / 430);
+    transform: translateY(-40px) scale(var(--splash-scale));
+  }
+}
+
+@media (min-width: 431px) {
+  .splash-canvas {
+    --splash-scale: min(
+      calc(100vw / 430),
+      calc(100vh / 932)
+    );
+    transform: translateY(-40px) scale(var(--splash-scale));
+  }
+}

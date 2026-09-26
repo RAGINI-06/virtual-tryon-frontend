@@ -12,65 +12,33 @@ const FRAME = {
 
 export default function SplashScreen({ onComplete }) {
   const [frame, setFrame] = useState(FRAME.ONE);
+  const [isFadingOut, setIsFadingOut] = useState(false);
 
   useEffect(() => {
-    /*
-     * =========================================================
-     * FIGMA AUTO ANIMATION
-     * =========================================================
-     *
-     * FRAME 1 → FRAME 2
-     * After Timeout: 0.5s
-     * Smart Animate
-     * Cubic Bezier: (0.97, 0, 0, 0.98)
-     * Duration: 1.5s
-     *
-     * FRAME 2 → FRAME 3
-     * After Timeout: ~0.001s
-     * Smart Animate
-     * Spring:
-     * mass: 1
-     * stiffness: 101.7
-     * damping: 7.06
-     * Duration: ~2.05s
-     *
-     * FRAME 3 → FRAME 4
-     * After Timeout: ~0.001s
-     * Smart Animate
-     * Quick
-     * Duration: ~0.99s
-     *
-     * FRAME 4 → FRAME 5
-     * After Timeout: ~0.001s
-     * Smart Animate
-     * Quick
-     * Duration: ~0.99s
-     */
-
     const timers = [];
 
-    // FRAME 1 → FRAME 2
+    // Frame 1 → Frame 2
     timers.push(
       setTimeout(() => {
         setFrame(FRAME.TWO);
       }, 500)
     );
 
-    // FRAME 2 → FRAME 3
+    // Frame 2 → Frame 3
     timers.push(
       setTimeout(() => {
         setFrame(FRAME.THREE);
       }, 500 + 1500 + 1)
     );
 
-    // FRAME 3 → FRAME 4
+    // Frame 3 → Frame 4
     timers.push(
       setTimeout(() => {
         setFrame(FRAME.FOUR);
       }, 500 + 1500 + 1 + 2050 + 1)
     );
 
-    // FRAME 4 → FRAME 5
+    // Frame 4 → Frame 5
     timers.push(
       setTimeout(() => {
         setFrame(FRAME.FIVE);
@@ -78,23 +46,31 @@ export default function SplashScreen({ onComplete }) {
     );
 
     /*
-     * Keep final frame visible briefly,
-     * then reveal the actual landing page.
-     */
-   timers.push(setTimeout(() => onComplete(), 6500));
+      Frame 5 stays visible until 6.5 seconds,
+      then smoothly fades out.
+    */
+    timers.push(
+      setTimeout(() => {
+        setIsFadingOut(true);
+
+        /*
+          Wait for fade animation to finish
+          before removing splash.
+        */
+        setTimeout(() => {
+          onComplete();
+        }, 400);
+      }, 6500)
+    );
 
     return () => {
       timers.forEach((timer) => clearTimeout(timer));
     };
   }, [onComplete]);
 
-  /*
-   * =========================================================
-   * PLATFORM / UNION POSITIONS
-   * =========================================================
-   *
-   * These come directly from your Figma measurements.
-   */
+  /* =========================================
+     PLATFORM / MASK GROUP POSITIONS
+  ========================================= */
 
   const platform =
     frame === FRAME.ONE
@@ -132,13 +108,9 @@ export default function SplashScreen({ onComplete }) {
                 height: 313,
               };
 
-  /*
-   * =========================================================
-   * LOGO POSITIONS
-   * =========================================================
-   *
-   * Directly from Figma.
-   */
+  /* =========================================
+     LOGO POSITIONS
+  ========================================= */
 
   const logo =
     frame === FRAME.ONE
@@ -176,40 +148,9 @@ export default function SplashScreen({ onComplete }) {
                 height: 73,
               };
 
-  /*
-   * =========================================================
-   * SHADOW / DARK ELLIPSE
-   * =========================================================
-   *
-   * Visible ONLY in Frames 1 and 2.
-   */
-
-  const shadow =
-    frame === FRAME.ONE
-      ? {
-          x: 375,
-          y: 572,
-          width: 297,
-          height: 92,
-        }
-      : {
-          x: 167.4,
-          y: 823,
-          width: 79.4,
-          height: 90,
-        };
-
-  /*
-   * =========================================================
-   * WORDMARK
-   * =========================================================
-   *
-   * Frame 4:
-   * x=164.3 y=480.4 w=172 h=77
-   *
-   * Frame 5:
-   * x=164 y=481 w=210 h=77
-   */
+  /* =========================================
+     WORDMARK
+  ========================================= */
 
   const wordmark =
     frame === FRAME.FOUR
@@ -226,26 +167,30 @@ export default function SplashScreen({ onComplete }) {
           height: 77,
         };
 
-  /*
-   * =========================================================
-   * TRANSITIONS
-   * =========================================================
-   */
-
   const isFrameTwo = frame === FRAME.TWO;
   const isFrameThree = frame === FRAME.THREE;
-  const isFrameFour = frame === FRAME.FOUR;
-  const isFrameFive = frame === FRAME.FIVE;
 
-  const smartAnimateTransition = {
-    duration: 0.99,
-    ease: "easeInOut",
-  };
+  /* =========================================
+     FRAME 1 → 2
+     Figma:
+     Smart Animate
+     Cubic Bezier
+     1.5s
+  ========================================= */
 
   const frameOneToTwoTransition = {
     duration: 1.5,
     ease: [0.97, 0, 0, 0.98],
   };
+
+  /* =========================================
+     FRAME 2 → 3
+     Figma:
+     Spring
+     mass: 1
+     stiffness: 101.7
+     damping: 7.06
+  ========================================= */
 
   const frameTwoToThreeTransition = {
     type: "spring",
@@ -254,11 +199,18 @@ export default function SplashScreen({ onComplete }) {
     damping: 7.06,
   };
 
-  /*
-   * =========================================================
-   * PLATFORM TRANSITION
-   * =========================================================
-   */
+  /* =========================================
+     FRAME 3 → 4
+     FRAME 4 → 5
+
+     Quick transition
+     ~0.99s
+  ========================================= */
+
+  const smartAnimateTransition = {
+    duration: 0.99,
+    ease: "easeInOut",
+  };
 
   const platformTransition = isFrameTwo
     ? frameOneToTwoTransition
@@ -266,36 +218,28 @@ export default function SplashScreen({ onComplete }) {
       ? frameTwoToThreeTransition
       : smartAnimateTransition;
 
-  /*
-   * =========================================================
-   * LOGO TRANSITION
-   * =========================================================
-   */
-
   const logoTransition = isFrameTwo
     ? frameOneToTwoTransition
     : isFrameThree
       ? frameTwoToThreeTransition
       : smartAnimateTransition;
 
-  /*
-   * =========================================================
-   * RENDER
-   * =========================================================
-   */
-
   return (
-    <div className="splash-screen">
-
-      {/* =====================================================
-          430 × 932 FIGMA CANVAS
-          ===================================================== */}
-
+    <motion.div
+      className="splash-screen"
+      animate={{
+        opacity: isFadingOut ? 0 : 1,
+      }}
+      transition={{
+        duration: 0.4,
+        ease: "easeInOut",
+      }}
+    >
       <div className="splash-canvas">
 
-        {/* ===================================================
-            MASK GROUP / UNION
-            =================================================== */}
+        {/* =====================================
+            MASK / UNION GROUP
+        ===================================== */}
 
         <motion.div
           className="arose-mask-group"
@@ -307,25 +251,15 @@ export default function SplashScreen({ onComplete }) {
           }}
           transition={platformTransition}
         >
-
-          {/* Rectangle part of Union */}
           <div className="union-rectangle" />
 
-          {/* Bottom ellipse part of Union */}
           <div className="union-bottom" />
-
         </motion.div>
 
 
-        {/* ===================================================
-            DARK ELLIPSE / SHADOW
-            =================================================== */}
-
-
-
-        {/* ===================================================
-            LOGO IMAGE
-            =================================================== */}
+        {/* =====================================
+            AROSE LOGO
+        ===================================== */}
 
         <motion.div
           className="arose-logo"
@@ -344,9 +278,11 @@ export default function SplashScreen({ onComplete }) {
         </motion.div>
 
 
-        {/* ===================================================
+        {/* =====================================
             AROSE WORDMARK
-            =================================================== */}
+
+            Appears only on Frame 4 & 5
+        ===================================== */}
 
         <motion.div
           className="arose-wordmark"
@@ -357,7 +293,8 @@ export default function SplashScreen({ onComplete }) {
             height: wordmark.height,
 
             opacity:
-              frame === FRAME.FOUR || frame === FRAME.FIVE
+              frame === FRAME.FOUR ||
+              frame === FRAME.FIVE
                 ? 1
                 : 0,
           }}
@@ -377,6 +314,6 @@ export default function SplashScreen({ onComplete }) {
         </motion.div>
 
       </div>
-    </div>
+    </motion.div>
   );
 }

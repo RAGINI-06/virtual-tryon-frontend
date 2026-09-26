@@ -16,14 +16,12 @@ function App() {
   const [showSplash, setShowSplash] = useState(true);
 
   return (
-    <>
-      {showSplash && (
+    <BrowserRouter>
+      {showSplash ? (
         <SplashScreen
           onComplete={() => setShowSplash(false)}
         />
-      )}
-
-      <BrowserRouter>
+      ) : (
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
@@ -34,8 +32,8 @@ function App() {
           <Route path="/history" element={<History />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
-      </BrowserRouter>
-    </>
+      )}
+    </BrowserRouter>
   );
 }
 
