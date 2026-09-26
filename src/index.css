@@ -214,8 +214,8 @@ a {
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-@layer base {
-  * {
+
+  /* * {
     @apply border-border outline-ring/50;
   }
   body {
@@ -223,5 +223,47 @@ a {
   }
   html {
     @apply font-sans;
+  }
+} */
+
+/* =========================
+   AROSE SPLASH SCREEN
+   ========================= */
+
+.arose-logo {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: aroseLogoIn 1.1s ease-out forwards;
+}
+
+.arose-tagline {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: aroseTaglineIn 1s ease-out 0.55s forwards;
+}
+
+@keyframes aroseLogoIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    letter-spacing: 0.45em;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 0.28em;
+  }
+}
+
+@keyframes aroseTaglineIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
