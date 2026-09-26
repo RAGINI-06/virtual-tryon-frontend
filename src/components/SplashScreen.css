@@ -1,144 +1,207 @@
+@import url("https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap");
+
+/* =========================================
+   AROSE SPLASH SCREEN
+   Figma Frame: 430 × 932
+   Background: #A57E58
+========================================= */
+
 .splash-screen {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+
+  background: rgb(165, 126, 88);
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background: #f8f7f4;
-  color: #292724;
-
-  animation: splashFadeOut 0.7s ease 1.8s forwards;
+  z-index: 999999;
 }
 
-.splash-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
+/* =========================================
+   FIGMA CANVAS
+========================================= */
+
+.splash-canvas {
+  position: relative;
+
+  width: 430px;
+  height: 932px;
+
+  flex-shrink: 0;
+
+  background: rgb(165, 126, 88);
+
+  overflow: hidden;
+
+  transform-origin: center center;
+
+  --splash-scale: min(
+    calc(100vw / 430),
+    calc(100vh / 932)
+  );
+
+  transform:
+    translateY(-40px)
+    scale(var(--splash-scale));
 }
 
-.splash-logo {
-  font-family: "DM Sans", sans-serif;
-  font-size: clamp(3rem, 8vw, 6rem);
-  font-weight: 500;
-  letter-spacing: 0.28em;
 
-  opacity: 0;
-  transform: translateY(20px);
+/* =========================================
+   MASK / UNION GROUP
+========================================= */
 
-  animation: logoReveal 1s cubic-bezier(0.22, 1, 0.36, 1)
-    0.2s forwards;
-}
-
-.splash-line {
-  width: 0;
-  height: 1px;
-  margin-top: 22px;
-
-  background: #292724;
-
-  animation: lineReveal 0.8s ease 0.9s forwards;
-}
-
-.splash-tagline {
-  margin-top: 18px;
-
-  font-family: "Playfair Display", serif;
-  font-style: italic;
-  font-size: 16px;
-
-  opacity: 0;
-
-  animation: taglineReveal 0.8s ease 1.1s forwards;
-}
-
-.splash-bottom {
+.arose-mask-group {
   position: absolute;
-  bottom: 32px;
 
-  font-size: 9px;
-  letter-spacing: 0.24em;
-  color: #817b73;
+  background: rgb(165, 126, 88);
 
-  opacity: 0;
+  z-index: 1;
 
-  animation: bottomReveal 0.7s ease 1.3s forwards;
+  overflow: visible;
+
+  pointer-events: none;
 }
 
-@keyframes logoReveal {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
+/* =========================================
+   UNION RECTANGLE
+========================================= */
+
+.union-rectangle {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 267px;
+
+  background: rgb(165, 126, 88);
+}
+
+
+/* =========================================
+   UNION BOTTOM
+========================================= */
+
+.union-bottom {
+  position: absolute;
+
+  left: 0;
+  top: 221px;
+
+  width: 100%;
+  height: 92px;
+
+  border-radius: 50%;
+
+  background: rgb(165, 126, 88);
+}
+
+
+/* =========================================
+   AROSE LOGO
+========================================= */
+
+.arose-logo {
+  position: absolute;
+
+  z-index: 3;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
+
+  transform-origin: center center;
+}
+
+
+.arose-logo img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  border-radius: 119px;
+}
+
+
+/* =========================================
+   AROSE WORDMARK
+========================================= */
+
+.arose-wordmark {
+  position: absolute;
+
+  z-index: 5;
+
+  display: flex;
+
+  align-items: center;
+
+  color: #ffffff;
+
+  font-family: "Irish Grover", cursive;
+
+  font-size: 64px;
+
+  font-weight: 400;
+
+  line-height: 77px;
+
+  white-space: nowrap;
+
+  transform: rotate(-0.5deg);
+
+  overflow: visible;
+
+  pointer-events: none;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 430px) {
+
+  .splash-canvas {
+    --splash-scale: calc(100vw / 430);
+
+    transform:
+      translateY(-40px)
+      scale(var(--splash-scale));
   }
 }
 
-@keyframes lineReveal {
-  from {
-    width: 0;
-  }
 
-  to {
-    width: 90px;
-  }
-}
+/* =========================================
+   DESKTOP / TABLET
+========================================= */
 
-@keyframes taglineReveal {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
+@media (min-width: 431px) {
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+  .splash-canvas {
+    --splash-scale: min(
+      calc(100vw / 430),
+      calc(100vh / 932)
+    );
 
-@keyframes bottomReveal {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes splashFadeOut {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .splash-screen,
-  .splash-logo,
-  .splash-line,
-  .splash-tagline,
-  .splash-bottom {
-    animation: none;
-  }
-
-  .splash-logo,
-  .splash-tagline,
-  .splash-bottom {
-    opacity: 1;
-  }
-
-  .splash-line {
-    width: 90px;
+    transform:
+      translateY(-40px)
+      scale(var(--splash-scale));
   }
 }
